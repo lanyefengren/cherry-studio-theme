@@ -1,4 +1,4 @@
-# CherryStudioTheme.css - Cherry Studio 高性能暗色主题
+# CherryStudioTheme.css - Cherry Studio 主题
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Cherry Studio v2](https://img.shields.io/badge/Cherry%20Studio-v2-blueviolet.svg)]()
