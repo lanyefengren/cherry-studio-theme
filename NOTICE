@@ -1,4 +1,4 @@
-Black.css - CherryStudio Dark Theme
+CherryStudioTheme.css - Cherry Studio Dark Theme
 Copyright (C) 2025
 
 This project is licensed under the GNU Affero General Public License v3.0
@@ -17,24 +17,22 @@ We gratefully acknowledge the contributions of these authors and projects.
    Description:    Maple Neon Minimal Theme for Cherry Studio
                    Focuses on AI agent running marquee effects for input bar
    Source:         [Original repository URL if available]
-   Usage:          Input bar flowing border animation and AI status effects
-   
+   Usage:          Input bar flowing/neon border animation
+
    Code Used:
    - @keyframes ai-running-gradient animation
-   - @keyframes ai-thinking-pulse animation (modified)
-   - @keyframes ai-data-flow animation
-   - #inputbar::before pseudo-element structure
-   - #inputbar.ai-thinking styles
-   - .ai-status-dot indicator styles
+   - #inputbar::before pseudo-element structure (marquee neon border)
+   - #inputbar:focus-within activation trigger
    - Responsive and accessibility media queries
-   
+
    Modifications Made:
-   - Optimized ai-thinking-pulse animation: changed from box-shadow to opacity
-     for better GPU performance
-   - Simplified gradient colors from 6 colors to 4 colors
-   - Adjusted animation timing and easing functions
-   - Reduced animation duration for better responsiveness
-   
+   - Marquee border implemented via background + mask (mask-composite),
+     decoupled from box-shadow so it is unaffected by the global
+     box-shadow: none reset.
+   - Simplified gradient colors to a 3-color (orange/violet/cyan) scheme.
+   - Added a higher-contrast variant for prefers-contrast: high.
+   - Refined animation timing and easing functions.
+
    License:        No explicit license header found
                    Assumed MIT-like permissive license based on public availability
 
@@ -45,16 +43,16 @@ We gratefully acknowledge the contributions of these authors and projects.
    Copyright:      Copyright (C) 2025 RMSHE. All rights reserved.
    Contact:        asdfghjkl851@outlook.com
    License:        GNU Affero General Public License v3.0 (AGPL-3.0)
-   
+
    Usage:          CSS variable organization patterns and component styling concepts
-   
+
    Note:           No direct code copying occurred. This project was inspired by
                    the structural organization and naming conventions used in
                    LuminaFlow.css, including:
    - CSS custom properties (variables) naming patterns
    - Component selector organization
    - Animation structure concepts
-   
+
    The actual implementation and specific values are original to this project.
 
 --------------------------------------------------------------------------------
@@ -65,14 +63,14 @@ We gratefully acknowledge the contributions of these authors and projects.
    Contact:        2793415370@qq.com
    Version:        1.0
    License:        Unknown (no explicit license declared)
-   
+
    Usage:          General theme concepts and font import references
-   
+
    Elements Referenced:
    - @import font URLs from fontsapi.zeoseven.com
    - Input bar animation concept (implementation is different)
    - General dark theme color palette concepts
-   
+
    Note:           This project does not contain direct code copying from
                    CherryStudio-by-bilibili.css. Only general concepts and
                    publicly available font resources were referenced.
@@ -81,14 +79,14 @@ We gratefully acknowledge the contributions of these authors and projects.
 4. Hatsune Miku.css
 --------------------------------------------------------------------------------
    License:        Unknown (no explicit license declared)
-   
+
    Usage:          Theme variable organization concepts
-   
+
    Elements Referenced:
    - CSS custom properties organization pattern
    - Light/dark theme variable structure
    - Background image handling approach
-   
+
    Note:           No direct code copying. Only conceptual inspiration for
                    organizing CSS variables and theme structure.
 
@@ -124,7 +122,6 @@ improperly attributed or licensed, please contact us to resolve any concerns.
 
 For questions about licensing, attribution, or contributions, please:
 - Open an issue on the GitHub repository
-- Contact the project maintainer
 
 ================================================================================
                     ADDITIONAL RESOURCES

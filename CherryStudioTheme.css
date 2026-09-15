@@ -1,0 +1,568 @@
+/**
+ * @file Seele.css (Cherry Studio v2 适配版)
+ * @description High-performance dark theme for Cherry Studio v2
+ *
+ * @copyright Copyright (C) 2025 lanyefengren
+ * @license GNU Affero General Public License v3.0 or later (AGPL-3.0+)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * ================================================================================
+ *
+ * THIRD-PARTY COMPONENTS AND ATTRIBUTION
+ *
+ * 1. just-flowing-border.css
+ *    - Usage: Input bar flowing border animation and AI status effects
+ *    - License: Assumed MIT-like
+ *
+ * 2. LuminaFlow.css by RMSHE (AGPL-3.0)
+ *    - Usage: CSS variable organization patterns
+ *
+ * 3. CherryStudio-by-bilibili.css by yihao li
+ *    - Usage: General theme concepts and font imports
+ *
+ * 4. Hatsune Miku.css
+ *    - Usage: Theme variable organization concepts
+ *
+ * See NOTICE file for complete attribution details.
+ *
+ * ================================================================================
+ */
+
+/* ================================================================
+ * 浅色主题
+ * ================================================================ */
+:root {
+    --transition-duration: 0.4s;
+    --transition-easing: ease-in-out;
+    --radius: var(--cs-radius-lg, 12px);
+
+    --chat-background-image: url("https://s41.ax1x.com/2026/09/15/pnnUuCD.png");/*浅色主题背景图片*/
+    --overlay-color: rgba(255, 255, 255, 0.5);/*浅色主题遮罩颜色*/
+
+    /* 玻璃参数（自命名 --glass 前缀，避免与官方变量冲突）
+       使用同色系（白）+ 不同透明度区分层级，避免"白vs灰"割裂
+       层级关系：background/sidebar < card < popover */
+    --glass: rgba(255, 255, 255, 0.92);        /* 卡片层 */
+    --glass-soft: rgba(255, 255, 255, 0.65);   /* 背景/侧栏层 */
+    --glass-softer: rgba(255, 255, 255, 0.45); /* 次级层 */
+
+    /* === v2 shadcn 语义变量（同色系白，透明度区分层级） === */
+    --background: var(--glass-soft);            /* 主背景：与侧栏同色，避免卡片外是灰 */
+    --background-subtle: var(--glass-softer);
+    --foreground: rgba(30, 30, 30, 0.9);
+    --card: var(--glass);                        /* 卡片：更不透明，与背景区分但同色系 */
+    --card-foreground: rgba(30, 30, 30, 0.9);
+    --popover: var(--glass);                    /* 浮层：与卡片同色，避免弹窗与卡片割裂 */
+    --popover-foreground: rgba(30, 30, 30, 0.9);
+    --secondary: var(--glass-softer);
+    --secondary-foreground: rgba(30, 30, 30, 0.9);
+    --muted: color-mix(in srgb, var(--primary) 15%, transparent); /* 设置页菜单选中态：用户主题色 15% 透明 */
+    --muted-foreground: rgba(80, 80, 80, 0.75);
+    --accent: var(--glass-soft);                /* 悬停态：与背景同色，过渡自然 */
+    --accent-foreground: rgba(30, 30, 30, 0.9);
+    --border: rgba(0, 0, 0, 0.04);
+    --input: rgba(255, 255, 255, 0.5);
+    --sidebar: var(--glass-soft);               /* 侧栏：与主背景同色，避免左右割裂 */
+    --sidebar-foreground: rgba(30, 30, 30, 0.9);
+    --sidebar-border: rgba(0, 0, 0, 0.03);
+    /* --primary 不硬编码，由 CherryStudio 设置里的主题色控制 */
+    --destructive: rgb(255, 77, 110);
+    --destructive-foreground: #ffffff;
+    --error: rgb(255, 77, 110);
+    --chat-user: var(--glass-soft);
+    --code-block: rgba(248, 248, 248, 0.9);
+
+    /* === 自定义渐变变量 === */
+    --gradient-assistant: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 248, 248, 0.9));
+    --gradient-user: linear-gradient(135deg, rgba(240, 240, 240, 0.85), rgba(235, 235, 235, 0.8));
+    /* 输入框实体不透字 */
+    --gradient-input: linear-gradient(135deg, #ffffff, #fafafa);
+    --gradient-button: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(250, 250, 250, 0.75));
+    --gradient-dropdown: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(250, 250, 250, 0.65));
+    --gradient-segmented: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(250, 250, 250, 0.7));
+    --gradient-code: linear-gradient(135deg, rgba(248, 248, 248, 0.9), rgba(245, 245, 245, 0.85));
+    --gradient-code-inline: linear-gradient(135deg, rgba(240, 240, 240, 0.9), rgba(235, 235, 235, 0.85));
+
+    --border-light: 1px solid rgba(0, 0, 0, 0.04);
+    --border-soft: 1px solid rgba(0, 0, 0, 0.025);
+    --border-thin: 1px solid rgba(0, 0, 0, 0.015);
+}
+
+/* ================================================================
+ * 深色主题
+ * ================================================================ */
+.dark {
+    --chat-background-image: url("https://s41.ax1x.com/2026/09/15/pnntTyR.png");/*深色主题背景图片*/
+    --overlay-color: rgba(0, 0, 0, 0.65);/*深色主题遮罩颜色*/
+
+    --glass: rgba(33, 33, 33, 0.92);        /* 卡片层 */
+    --glass-soft: rgba(33, 33, 33, 0.65);   /* 背景/侧栏层 */
+    --glass-softer: rgba(33, 33, 33, 0.45); /* 次级层 */
+
+    /* === v2 shadcn 语义变量（同色系深灰，透明度区分层级） === */
+    --background: var(--glass-soft);            /* 主背景：与侧栏同色 */
+    --background-subtle: var(--glass-softer);
+    --foreground: rgba(225, 230, 235, 0.9);
+    --card: var(--glass);                        /* 卡片 */
+    --card-foreground: rgba(225, 230, 235, 0.9);
+    --popover: var(--glass);                    /* 浮层：与卡片同色 */
+    --popover-foreground: rgba(225, 230, 235, 0.9);
+    --secondary: var(--glass-softer);
+    --secondary-foreground: rgba(225, 230, 235, 0.9);
+    --muted: color-mix(in srgb, var(--primary) 15%, transparent); /* 设置页菜单选中态：用户主题色 15% 透明 */
+    --muted-foreground: rgba(170, 175, 180, 0.75);
+    --accent: var(--glass-soft);
+    --accent-foreground: rgba(225, 230, 235, 0.9);
+    --border: rgba(255, 255, 255, 0.06);
+    --input: rgba(255, 255, 255, 0.12);
+    --sidebar: var(--glass-soft);               /* 侧栏：与主背景同色 */
+    --sidebar-foreground: rgba(225, 230, 235, 0.9);
+    --sidebar-border: rgba(255, 255, 255, 0.04);
+    --destructive: rgb(255, 77, 110);
+    --destructive-foreground: #ffffff;
+    --error: rgb(255, 77, 110);
+    --chat-user: rgba(40, 40, 40, 0.75);
+    --code-block: rgba(35, 35, 35, 0.6);
+
+    --gradient-assistant: linear-gradient(135deg, rgba(45, 45, 45, 0.95), rgba(35, 35, 35, 0.9));
+    --gradient-user: linear-gradient(135deg, rgba(40, 40, 40, 0.75), rgba(30, 30, 30, 0.7));
+    --gradient-input: linear-gradient(135deg, #2a2a2a, #252525);
+    --gradient-button: linear-gradient(135deg, rgba(40, 40, 40, 0.7), rgba(35, 35, 35, 0.65));
+    --gradient-dropdown: linear-gradient(135deg, rgba(35, 35, 35, 0.55), rgba(30, 30, 30, 0.5));
+    --gradient-segmented: linear-gradient(135deg, rgba(35, 35, 35, 0.6), rgba(30, 30, 30, 0.55));
+    --gradient-code: linear-gradient(135deg, rgba(35, 35, 35, 0.6), rgba(30, 30, 30, 0.55));
+    --gradient-code-inline: linear-gradient(135deg, rgba(55, 55, 55, 0.8), rgba(50, 50, 50, 0.75));
+
+    --border-light: 1px solid rgba(255, 255, 255, 0.06);
+    --border-soft: 1px solid rgba(255, 255, 255, 0.04);
+    --border-thin: 1px solid rgba(255, 255, 255, 0.025);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    box-shadow: none !important;
+}
+
+body {
+    background-color: transparent !important;
+    color: var(--foreground);
+    font-family: var(--font-family);
+    font-weight: normal;
+    transition: background-color var(--transition-duration) var(--transition-easing),
+                color var(--transition-duration) var(--transition-easing);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: var(--chat-background-image);
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    pointer-events: none;
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: var(--overlay-color);
+    pointer-events: none;
+    z-index: -1;
+    transition: background var(--transition-duration) var(--transition-easing);
+}
+
+/* ================================================================
+ * 壳层透明化（v2 必需，否则不透明壳层会盖死壁纸）
+ * ================================================================ */
+#root,
+#root > div,
+#content-container,
+[data-ui~="app.content"],
+[data-ui~="chat.view"],
+[data-ui~="chat.message-list"] {
+    background: transparent;
+}
+
+div[data-ui="app.shell"],
+[data-ui="app.tab-bar"],
+body > div:has([data-ui="app.shell"]) {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+div.flex.h-screen.w-screen.flex-row.overflow-hidden.bg-sidebar,
+div.flex.h-screen.w-screen.overflow-hidden.bg-sidebar,
+div.flex.h-screen.w-screen.flex-col.overflow-hidden.bg-sidebar {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+.bg-sidebar,
+.bg-background {
+    background-color: transparent !important;
+}
+
+/* 关键修复：Tailwind 工具类 .bg-* 直接设 background-color，不读变量。
+   必须直接覆盖这些类才能让卡片背景生效。 */
+.bg-card { background-color: var(--card) !important; }
+.bg-popover { background-color: var(--popover) !important; }
+.bg-muted { background-color: var(--muted) !important; }
+.bg-accent { background-color: var(--accent) !important; }
+.bg-secondary { background-color: var(--secondary) !important; }
+.bg-input { background-color: var(--input) !important; }
+
+/* Tailwind 圆角工具类统一走 --radius 变量 */
+.rounded-lg,
+.rounded-md,
+.rounded-xl,
+.rounded-2xl {
+    border-radius: var(--radius) !important;
+}
+
+/* ================================================================
+ * 消息气泡
+ *   外层透明避免背景包住头像；背景移到 .message-content-container 内层
+ * ================================================================ */
+.message-assistant,
+.message-user {
+    background: transparent !important;
+    border: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.message-assistant .message-content-container,
+.message-assistant [data-ui~="part:message-content"] {
+    background: var(--gradient-assistant) !important;
+    border-radius: var(--radius) !important;
+    padding: 10px 14px;
+    overflow: clip !important;
+}
+
+.bubble:not(.multi-select-mode) .message-user .message-content-container,
+.message-user [data-ui~="part:message-content"] {
+    background: var(--gradient-user) !important;
+    border-radius: var(--radius) !important;
+    padding: 10px 14px;
+    overflow: clip !important;
+}
+
+/* 消息气泡内部子元素继承父级圆角，避免外圆内方 */
+.message-content-container > *,
+.message-content-container pre,
+.message-content-container blockquote,
+.message-content-container table,
+.message-content-container code {
+    border-radius: inherit !important;
+}
+
+/* 消息气泡内的折叠面板/卡片：圆角比父级略小，嵌在父级圆角内部
+   （不放 inherit，因为 inherit 的圆角曲线与父级完全重合，
+   紧贴边缘时有背景的子元素会产生可见的方角缝隙） */
+.message-content-container [data-slot="accordion-item"],
+.message-content-container [role="region"],
+.message-content-container [data-slot="card"],
+.message-content-container .bg-card,
+.message-content-container .bg-muted,
+.message-content-container .bg-accent {
+    border-radius: calc(var(--radius) - 2px) !important;
+    overflow: clip;
+}
+
+.markdown {
+    font-family: var(--font-family);
+    font-weight: normal;
+}
+
+#messages,
+[data-ui="chat.message-list"],
+.messages-container {
+    background-color: transparent !important;
+    padding: 15px;
+}
+
+@keyframes messagePop {
+    0% { opacity: 0; transform: translateY(-8px) scale(0.98); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.message-content-container {
+    animation: messagePop 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    /* 不加 will-change，避免创建堆叠上下文影响内部 tooltip/子菜单定位 */
+    transform: translateZ(0);
+}
+
+/* ================================================================
+ * 输入框（跑马灯 + AI 状态特效）
+ * ================================================================ */
+#inputbar,
+.inputbar-container,
+[data-ui~="chat.composer"] {
+    background: var(--gradient-input) !important;
+    border: var(--border-light) !important;
+    border-radius: var(--radius);
+    position: relative;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: background var(--transition-duration) var(--transition-easing),
+                border-color var(--transition-duration) var(--transition-easing);
+}
+
+/* 输入框内部子元素继承父级圆角
+   注：不加 overflow: clip，否则会裁剪掉跑马灯伪元素（::before inset:-2px） */
+#inputbar > *,
+#inputbar textarea,
+#inputbar .composer-tiptap,
+#inputbar .ProseMirror,
+[data-ui~="chat.composer"] > * {
+    border-radius: inherit;
+}
+
+@keyframes ai-running-gradient {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* 跑马灯霓虹边框（用 background + mask，不受全局 box-shadow: none 影响）
+   注：不加 will-change/transform，避免创建堆叠上下文影响输入框内
+   dropdown 的 z-index 定位（导致错位） */
+#inputbar::before,
+[data-ui~="chat.composer"]::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(90deg, #ff6a01, #8a2be2, #00d4ff, #ff6a01);
+    background-size: 200% 100%;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: ai-running-gradient 5s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#inputbar:focus-within::before,
+[data-ui~="chat.composer"]:focus-within::before {
+    opacity: 1;
+}
+
+#inputbar input,
+#inputbar textarea,
+[data-ui~="chat.composer"] input,
+[data-ui~="chat.composer"] textarea {
+    position: relative;
+    z-index: 2;
+}
+
+/* ================================================================
+ * 其他组件（shadcn 选择器 + antd 残留兜底）
+ * ================================================================ */
+[data-slot="input"],
+[data-slot="dialog-content"] input,
+[data-slot="popover-content"] input {
+    background: var(--gradient-input) !important;
+    border: var(--border-soft) !important;
+}
+
+/* 只处理 accordion-item 的玻璃化背景。
+   button[data-variant="default"/"emphasis"] 不覆盖，让 CherryStudio
+   设置里的主题色（--primary）正常生效。 */
+[data-slot="accordion-item"] {
+    background: var(--gradient-button) !important;
+    border: var(--border-soft) !important;
+}
+
+[data-slot="dropdown-menu-content"],
+[data-slot="menu-list"] {
+    background: var(--gradient-dropdown) !important;
+    border-radius: var(--radius) !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+[data-slot="tabs-trigger"],
+[data-slot="segmented-control"] {
+    background: var(--gradient-segmented) !important;
+}
+
+[data-ui~="part:code-block"] {
+    background: var(--gradient-code) !important;
+    border: var(--border-soft) !important;
+    border-radius: var(--radius) !important;
+    overflow: hidden !important;
+}
+
+[data-ui~="part:code-block"] pre {
+    background: transparent !important;
+    border-radius: inherit !important;
+}
+
+code {
+    background: var(--gradient-code-inline) !important;
+    border: var(--border-thin);
+    border-radius: var(--radius-sm, 4px) !important;
+    padding: 2px 6px;
+}
+
+/* 弹窗/设置面板：右侧详情栏保持现状（与卡片同色 --card）
+   注：不加 overflow: clip，否则破坏 Radix UI Popover/Tooltip 定位上下文，
+   导致 tooltip 错位（显示在列表项内部而非浮在上方） */
+[data-slot="dialog-content"],
+[data-ui~="settings.content"] {
+    background: var(--card) !important;
+    border: var(--border-light) !important;
+    border-radius: var(--radius) !important;
+}
+
+/* 二级弹出菜单（Popover/Dropdown）：纯白不透明，不透壁纸
+   原因：弹窗在壁纸之上叠半透明卡片，会呈现"塑料灰"感（白卡+遮罩+壁纸混合）
+   选择器：[data-slot="popover-content"]（Radix Popover）、[data-slot="dropdown-menu-content"]（Radix DropdownMenu）
+   [data-slot="select-content"]（Radix Select）、[role="dialog"]（通用对话框） */
+[data-slot="popover-content"],
+[data-slot="dropdown-menu-content"],
+[data-slot="select-content"],
+[role="dialog"] {
+    background: #ffffff !important;
+}
+
+.dark [data-slot="popover-content"],
+.dark [data-slot="dropdown-menu-content"],
+.dark [data-slot="select-content"],
+.dark [role="dialog"] {
+    background: #1f1f23 !important;
+}
+
+[data-ui="settings.navigation"] {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* 设置页菜单栏容器本身也要透明（外层 .border-r 可能有背景） */
+[data-ui="settings.navigation"].border-border,
+[data-ui="settings.view"] [class*="bg-sidebar"] {
+    background-color: transparent !important;
+}
+
+/* 设置页菜单项：悬停时显示灰色背景（标识状态）
+   注：选中态颜色由 --muted 变量控制（官方 data-[active=true]:!bg-muted）
+   所以直接修改 :root/.dark 的 --muted 即可，无需在此写选择器 */
+[data-ui="settings.navigation"] [data-slot="menu-item"] {
+    border-radius: var(--radius) !important;
+    transition: background-color 0.2s ease !important;
+}
+
+[data-ui="settings.navigation"] [data-slot="menu-item"]:hover {
+    background-color: var(--accent) !important;
+}
+
+/* 左侧主导航栏（app.sidebar / 知识库/翻译/绘画等按钮）选中态
+   关键：必须用 --primary 变量（用户主题色），而不是 --muted（灰色）
+   选中态的颜色来源：CherryStudio 默认用 primary 的 15% 透明度（bg-primary/15）
+   用 color-mix(in srgb, var(--primary) 15%, transparent) 模拟此效果 */
+[data-ui~="app.sidebar"] [data-active="true"],
+[data-ui~="app.sidebar"] [data-slot="menu-item"][data-active="true"],
+[data-ui~="app.sidebar"] button[data-active="true"],
+[data-ui~="knowledge.navigation"] [data-active="true"],
+[data-ui~="knowledge.navigation"] button[data-active="true"] {
+    background-color: color-mix(in srgb, var(--primary) 15%, transparent) !important;
+    color: var(--primary) !important;
+}
+
+[data-ui~="app.sidebar"] [data-active="true"]:hover,
+[data-ui~="app.sidebar"] [data-slot="menu-item"][data-active="true"]:hover {
+    background-color: color-mix(in srgb, var(--primary) 25%, transparent) !important;
+}
+
+/* 开关组件：checked 状态改为用户主题色（覆盖官方硬编码的 bg-brand-600 绿色）
+   注：官方用 bg-brand-600 Tailwind 类，编译后固定绿色，不读 --primary
+   选择器：[data-slot="switch"][data-state="checked"]（Radix Switch 根元素） */
+[data-slot="switch"][data-state="checked"] {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+[data-slot="dialog-content"] > *,
+[data-ui~="settings.content"] > *,
+[data-ui~="settings.navigation"],
+[data-ui~="settings.content"] [data-slot="card"],
+[data-ui~="settings.content"] [data-slot="tabs"] {
+    border-radius: inherit !important;
+}
+
+[data-ui~="settings.content"] [data-slot="accordion-item"],
+[data-ui~="settings.content"] [role="region"] {
+    border-radius: var(--radius) !important;
+}
+
+.ant-modal .ant-modal-content {
+    background: var(--popover) !important;
+    border: var(--border-light);
+    border-radius: var(--radius) !important;
+}
+
+.ant-modal .ant-modal-header,
+.ant-modal .ant-modal-body,
+.ant-modal .ant-modal-footer {
+    background: transparent !important;
+    border-radius: inherit !important;
+}
+
+.ant-dropdown .ant-dropdown-menu,
+.ant-dropdown-menu-submenu .ant-dropdown-menu {
+    background: var(--gradient-dropdown) !important;
+    border-radius: var(--radius) !important;
+}
+
+/* ================================================================
+ * 响应式与无障碍
+ * ================================================================ */
+@media (max-width: 768px) {
+    #inputbar::before,
+    [data-ui~="chat.composer"]::before {
+        inset: -1px;
+        padding: 1px;
+        background-size: 150% 100%;
+        animation-duration: 4s;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@media (prefers-contrast: high) {
+    #inputbar::before,
+    [data-ui~="chat.composer"]::before {
+        background: linear-gradient(90deg, #ff8c00, #9370db, #00bfff, #ff8c00);
+    }
+}
